@@ -1,0 +1,70 @@
+{% extends "shared/base.html" %}
+
+{% block navbar %}
+
+    {% include "shared/navbar.html" with view_name='configs'%}
+
+{% endblock %}
+
+{% block content %}
+
+    <div class="container">
+        <div class="row">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <div class="row">
+                        <div class="col-xs-3">
+                            <h4 class="text-left">Test Configs</h4>
+                        </div>
+                        <div class="col-xs-offset-6 col-xs-3">
+                            <a class="btn btn-default pull-right" href="{% url 'checker:config' %}" role="button">Add New</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="panel-body">
+                {% if config_list.rows %}
+                    <table class="table table-bordered table-striped table-hover">
+                        <thead>
+                            <tr>
+                            {% for key in config_list.headings %}
+                                <th>{{ key }}</th>
+                            {% endfor %}
+                                <th>&nbsp;</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        {% for config in config_list.rows %}
+                            <tr>
+                                {% for value in config.values %}
+                                    {% if forloop.first %}
+                                        <td>
+                                            <a href="{% url 'checker:config' config.id %}">
+                                                {{ value }}
+                                            </a>
+                                        </td>
+
+                                    {% else %}
+                                        <td>{{ value }}</td>
+                                    {% endif %}
+                                {% endfor %}
+
+                                <td width="57px">
+                                    <form role="form" id="delete_config_form" action="" method="post">
+                                        <button type="submit" class="btn btn-default", name="_delete" value="{{ config.id }}">
+                                            <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+                                        </button>
+                                    </form>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                {% else %}
+                    <p> No tests pending </p>
+                {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

@@ -1,0 +1,539 @@
+[
+{
+    "model": "auth.user",
+    "pk": 5,
+    "fields": {
+        "password": "pbkdf2_sha256$24000$OG1rcFoXBQnH$1CFg7bCKAOVSZeKKMzzsqYKidQYK2v9bLzhc6vMKImU=",
+        "last_login": null,
+        "is_superuser": true,
+        "username": "IMT",
+        "first_name": "",
+        "last_name": "",
+        "email": "",
+        "is_staff": true,
+        "is_active": true,
+        "date_joined": "2016-09-01T12:19:22.508Z",
+        "groups": [],
+        "user_permissions": []
+    }
+},
+{
+    "model": "checker.currenttest",
+    "pk": 1,
+    "fields": {
+        "created": "2016-08-31T14:57:01.686Z",
+        "updated": "2016-08-31",
+        "mac": "0000000000000002",
+        "config": 1,
+        "status": 0
+    }
+},
+{
+    "model": "checker.request",
+    "pk": 1,
+    "fields": {
+        "string": "activate"
+    }
+},
+{
+    "model": "checker.request",
+    "pk": 2,
+    "fields": {
+        "string": "info"
+    }
+},
+{
+    "model": "checker.request",
+    "pk": 3,
+    "fields": {
+        "string": "data"
+    }
+},
+{
+    "model": "checker.request",
+    "pk": 4,
+    "fields": {
+        "string": "fw"
+    }
+},
+{
+    "model": "checker.response",
+    "pk": 1,
+    "fields": {
+        "name": "200 OK"
+    }
+},
+{
+    "model": "checker.response",
+    "pk": 2,
+    "fields": {
+        "name": "SignatureDoesNotMatch"
+    }
+},
+{
+    "model": "checker.response",
+    "pk": 3,
+    "fields": {
+        "name": "ActivationNotAllowed"
+    }
+},
+{
+    "model": "checker.response",
+    "pk": 4,
+    "fields": {
+        "name": "SignatureTimeout"
+    }
+},
+{
+    "model": "checker.response",
+    "pk": 5,
+    "fields": {
+        "name": "InvalidAccessKey"
+    }
+},
+{
+    "model": "checker.response",
+    "pk": 6,
+    "fields": {
+        "name": "ConnectionError"
+    }
+},
+{
+    "model": "checker.response",
+    "pk": 7,
+    "fields": {
+        "name": "BadRequest"
+    }
+},
+{
+    "model": "checker.response",
+    "pk": 8,
+    "fields": {
+        "name": "FirmwareNotFound"
+    }
+},
+{
+    "model": "checker.response",
+    "pk": 9,
+    "fields": {
+        "name": "InternalServerError"
+    }
+},
+{
+    "model": "checker.response",
+    "pk": 10,
+    "fields": {
+        "name": "200 OK(none)"
+    }
+},
+{
+    "model": "checker.response",
+    "pk": 11,
+    "fields": {
+        "name": "200 OK(reboot)"
+    }
+},
+{
+    "model": "checker.response",
+    "pk": 12,
+    "fields": {
+        "name": "Done"
+    }
+},
+{
+    "model": "checker.response",
+    "pk": 13,
+    "fields": {
+        "name": "200 OK(AK)"
+    }
+},
+{
+    "model": "checker.successresponse",
+    "pk": 1,
+    "fields": {
+        "json_content": "{\"status\": \"ok\", \"i_channels\": \"1,2,3,4\", \"v_channels\": \"1\"}"
+    }
+},
+{
+    "model": "checker.successresponse",
+    "pk": 10,
+    "fields": {
+        "json_content": "{\"request\": \"none\"}"
+    }
+},
+{
+    "model": "checker.successresponse",
+    "pk": 11,
+    "fields": {
+        "json_content": "{\"request\": \"reboot\"}"
+    }
+},
+{
+    "model": "checker.successresponse",
+    "pk": 12,
+    "fields": {
+        "json_content": "{\"request\": \"Test completed successfully\"}"
+    }
+},
+{
+    "model": "checker.successresponse",
+    "pk": 13,
+    "fields": {
+        "json_content": "{\"access_key\": \"AK\"}"
+    }
+},
+{
+    "model": "checker.failresponse",
+    "pk": 2,
+    "fields": {
+        "code": "SignatureDoesNotMatch",
+        "message": "The signature you provided does not match the signature we calculated.",
+        "http_status": 403
+    }
+},
+{
+    "model": "checker.failresponse",
+    "pk": 3,
+    "fields": {
+        "code": "ActivationNotAllowed",
+        "message": "The activation is not allowed.",
+        "http_status": 403
+    }
+},
+{
+    "model": "checker.failresponse",
+    "pk": 4,
+    "fields": {
+        "code": "SignatureTimeout",
+        "message": "The signature you provided is unavailable due to timeout.",
+        "http_status": 403
+    }
+},
+{
+    "model": "checker.failresponse",
+    "pk": 5,
+    "fields": {
+        "code": "InvalidAccessKey",
+        "message": "The access key you provided does not exist in our records.",
+        "http_status": 403
+    }
+},
+{
+    "model": "checker.failresponse",
+    "pk": 6,
+    "fields": {
+        "code": "ConnectionError",
+        "message": "There is connection error between client and server.",
+        "http_status": 403
+    }
+},
+{
+    "model": "checker.failresponse",
+    "pk": 7,
+    "fields": {
+        "code": "BadRequest",
+        "message": "The request you provided is not valid.",
+        "http_status": 400
+    }
+},
+{
+    "model": "checker.failresponse",
+    "pk": 8,
+    "fields": {
+        "code": "FirmwareNotFound",
+        "message": "The firmware you requested is not found.",
+        "http_status": 400
+    }
+},
+{
+    "model": "checker.failresponse",
+    "pk": 9,
+    "fields": {
+        "code": "InternalServerError",
+        "message": "The internal server error occurred.",
+        "http_status": 500
+    }
+},
+{
+    "model": "checker.config",
+    "pk": 1,
+    "fields": {
+        "name": "Meter Emulator Test 1"
+    }
+},
+{
+    "model": "checker.testconfig",
+    "pk": 1,
+    "fields": {
+        "config": 1,
+        "status": 0,
+        "request": 1,
+        "next_status": 2,
+        "response": 3
+    }
+},
+{
+    "model": "checker.testconfig",
+    "pk": 2,
+    "fields": {
+        "config": 1,
+        "status": 0,
+        "request": 2,
+        "next_status": 1,
+        "response": 5
+    }
+},
+{
+    "model": "checker.testconfig",
+    "pk": 3,
+    "fields": {
+        "config": 1,
+        "status": 0,
+        "request": 3,
+        "next_status": 1,
+        "response": 5
+    }
+},
+{
+    "model": "checker.testconfig",
+    "pk": 4,
+    "fields": {
+        "config": 1,
+        "status": 0,
+        "request": 4,
+        "next_status": 1,
+        "response": 5
+    }
+},
+{
+    "model": "checker.testconfig",
+    "pk": 5,
+    "fields": {
+        "config": 1,
+        "status": 1,
+        "request": 1,
+        "next_status": 2,
+        "response": 3
+    }
+},
+{
+    "model": "checker.testconfig",
+    "pk": 6,
+    "fields": {
+        "config": 1,
+        "status": 2,
+        "request": 1,
+        "next_status": 3,
+        "response": 2
+    }
+},
+{
+    "model": "checker.testconfig",
+    "pk": 7,
+    "fields": {
+        "config": 1,
+        "status": 3,
+        "request": 1,
+        "next_status": 4,
+        "response": 6
+    }
+},
+{
+    "model": "checker.testconfig",
+    "pk": 8,
+    "fields": {
+        "config": 1,
+        "status": 4,
+        "request": 1,
+        "next_status": 5,
+        "response": 13
+    }
+},
+{
+    "model": "checker.testconfig",
+    "pk": 9,
+    "fields": {
+        "config": 1,
+        "status": 5,
+        "request": 2,
+        "next_status": 6,
+        "response": 5
+    }
+},
+{
+    "model": "checker.testconfig",
+    "pk": 10,
+    "fields": {
+        "config": 1,
+        "status": 6,
+        "request": 1,
+        "next_status": 7,
+        "response": 13
+    }
+},
+{
+    "model": "checker.testconfig",
+    "pk": 11,
+    "fields": {
+        "config": 1,
+        "status": 7,
+        "request": 2,
+        "next_status": 8,
+        "response": 7
+    }
+},
+{
+    "model": "checker.testconfig",
+    "pk": 12,
+    "fields": {
+        "config": 1,
+        "status": 8,
+        "request": 1,
+        "next_status": 9,
+        "response": 13
+    }
+},
+{
+    "model": "checker.testconfig",
+    "pk": 13,
+    "fields": {
+        "config": 1,
+        "status": 9,
+        "request": 2,
+        "next_status": 10,
+        "response": 6
+    }
+},
+{
+    "model": "checker.testconfig",
+    "pk": 14,
+    "fields": {
+        "config": 1,
+        "status": 10,
+        "request": 2,
+        "next_status": 11,
+        "response": 1
+    }
+},
+{
+    "model": "checker.testconfig",
+    "pk": 15,
+    "fields": {
+        "config": 1,
+        "status": 11,
+        "request": 3,
+        "next_status": 12,
+        "response": 5
+    }
+},
+{
+    "model": "checker.testconfig",
+    "pk": 16,
+    "fields": {
+        "config": 1,
+        "status": 12,
+        "request": 1,
+        "next_status": 13,
+        "response": 13
+    }
+},
+{
+    "model": "checker.testconfig",
+    "pk": 17,
+    "fields": {
+        "config": 1,
+        "status": 13,
+        "request": 2,
+        "next_status": 14,
+        "response": 1
+    }
+},
+{
+    "model": "checker.testconfig",
+    "pk": 18,
+    "fields": {
+        "config": 1,
+        "status": 14,
+        "request": 3,
+        "next_status": 15,
+        "response": 7
+    }
+},
+{
+    "model": "checker.testconfig",
+    "pk": 19,
+    "fields": {
+        "config": 1,
+        "status": 15,
+        "request": 1,
+        "next_status": 16,
+        "response": 13
+    }
+},
+{
+    "model": "checker.testconfig",
+    "pk": 20,
+    "fields": {
+        "config": 1,
+        "status": 16,
+        "request": 2,
+        "next_status": 17,
+        "response": 1
+    }
+},
+{
+    "model": "checker.testconfig",
+    "pk": 21,
+    "fields": {
+        "config": 1,
+        "status": 17,
+        "request": 3,
+        "next_status": 18,
+        "response": 6
+    }
+},
+{
+    "model": "checker.testconfig",
+    "pk": 22,
+    "fields": {
+        "config": 1,
+        "status": 18,
+        "request": 3,
+        "next_status": 19,
+        "response": 10
+    }
+},
+{
+    "model": "checker.testconfig",
+    "pk": 23,
+    "fields": {
+        "config": 1,
+        "status": 19,
+        "request": 3,
+        "next_status": 20,
+        "response": 11
+    }
+},
+{
+    "model": "checker.testconfig",
+    "pk": 24,
+    "fields": {
+        "config": 1,
+        "status": 20,
+        "request": 2,
+        "next_status": 21,
+        "response": 1
+    }
+},
+{
+    "model": "checker.testconfig",
+    "pk": 25,
+    "fields": {
+        "config": 1,
+        "status": 21,
+        "request": 3,
+        "next_status": -1,
+        "response": 12
+    }
+}
+]

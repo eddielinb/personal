@@ -1,0 +1,248 @@
+{% extends "shared/base.html" %}
+
+{% block head %}
+
+    <!-- <meta http-equiv="refresh" content="5" > -->
+    {{ block.super }}
+
+{% endblock %}
+
+
+{% block navbar %}
+
+    {% include "shared/navbar.html" with view_name='checker'%}
+
+{% endblock %}
+
+{# load protocol_extras #}
+
+{% block content %}
+
+    <div class="container">
+        <div class="row">
+            {% load i18n widget_tweaks %}
+            <form class="form-horizontal" role="form" action="{% url 'checker:index' %}" method="post">
+                {% csrf_token %}
+                {% for field in form %}
+                    {% if field.errors %}
+                        <div class="form-group has-error">
+                            <label class="col-sm-4 control-label" for="{{ field.id_for_label }}">{{ field.label }}</label>
+                            <div class="col-sm-4">
+                                {% render_field field class+="form-control" placeholder=field.field.placeholder %}
+                                <span class="help-block">
+                                    {% for error in  field.errors %}{{ error }}{% endfor %}
+                                </span>
+                            </div>
+                        </div>
+                    {% else %}
+                        <div class="form-group">
+                            <label class="col-sm-4 control-label" for="{{ field.id_for_label }}">{{ field.label }}</label>
+                            <div class="col-sm-4">
+                                {% render_field field class+="form-control" placeholder=field.field.placeholder %}
+                                {% if field.help_text %}
+                                    <p class="help-block"><small>{{ field.help_text }}</small></p>
+                                {% endif %}
+                            </div>
+                        </div>
+                    {% endif %}
+                {% endfor %}
+                {% if add_test %}
+                    <div class="form-group">
+                        <div class="col-sm-offset-4 col-sm-8">
+                            <font color="red">
+                                The test already exists
+                            </font>
+                        </div>
+                    </div>
+                {% endif %}
+                <div class="form-group">
+                    <div class="col-sm-offset-4 col-sm-8">
+                        <button type="submit" class="btn btn-primary">Add Test </button>
+                    </div>
+                </div>
+            </form>
+        </div>
+
+        <div class="row">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h5 class="text-center">Pending Tests</h5>
+                </div>
+                <div class="panel-body">
+                {% if pending_list.rows %}
+                    <table class="table table-bordered table-striped table-hover">
+                        <thead>
+                            <tr>
+                            {% for key in pending_list.headings %}
+                                <th>{{ key }}</th>
+                            {% endfor %}
+                                <th>&nbsp;</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        {% for pending in pending_list.rows %}
+                            <tr>
+                            {% for value in pending.values %}
+                                <td>{{ value }}</td>
+                            {% endfor %}
+                                <td width="57px">
+                                    <form role="form" id="delete_pending_form" action="" method="post">
+                                        <button type="submit" class="btn btn-default" name="_delete" value="{{ pending.id }}">
+                                            <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+                                        </button>
+                                    </form>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                {% else %}
+                    <p> No tests pending </p>
+                {% endif %}
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h5 class="text-center">Ongoing Tests</h5>
+                </div>
+                <div class="panel-body">
+                {% if in_progress_list.rows %}
+                    <table class="table table-bordered table-striped table-hover">
+                        <thead>
+                            <tr>
+                            {% for key in in_progress_list.headings %}
+                                <th>{{ key }}</th>
+                            {% endfor %}
+                            </tr>
+                        </thead>
+                        <tbody>
+                        {% for in_progress in in_progress_list.rows %}
+                            <tr>
+                            {% for value in in_progress.row %}
+                                <td>{{ value }}</td>
+                            {% endfor %}
+                                <td width="57px">
+                                    <form role="form" id="delete_ongoing_form" action="" method="post">
+                                        <button type="submit" class="btn btn-default" name="_delete_history" value="{{ in_progress.mac }}">
+                                            <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+                                        </button>
+                                    </form>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                {% else %}
+                    <p> No tests in progress </p>
+                {% endif %}
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            {% load i18n widget_tweaks %}
+            <form class="form-horizontal" role="form" action="{% url 'checker:index' %}" method="post">
+                {% csrf_token %}
+                {% for field in test_detail_form %}
+                    <div class="form-group">
+                         <label class="col-sm-4 control-label" for="{{ field.id_for_label }}">{{ field.label }}</label>
+                         <div class="col-sm-4">
+                                {% render_field field class+="form-control" placeholder=field.field.placeholder %}
+                         </div>
+                    </div>
+                {% endfor %}
+                <div class="form-group">
+                    <div class="col-sm-offset-4 col-sm-8">
+                        <td>
+                             <button type="submit" class="btn btn-primary" name="_show_detail" value="True">Show Detail</button>
+                        </td>
+                        <td>
+                             <button type="submit" class="btn btn-primary" name="_delete_test" value="True">Delete Test</button>
+                        </td>
+                    </div>
+                </div>
+            </form>
+        </div>
+
+        <div class="row">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h5 class="text-center">Test Detail </h5>
+                </div>
+                <div class="panel-body">
+                {% if detail_list.rows %}
+                    <table class="table table-bordered table-striped table-hover">
+                        <thead>
+                            <tr>
+                            {% for key in detail_list.headings %}
+                                <th>{{ key }}</th>
+                            {% endfor %}
+                            </tr>
+                        </thead>
+                        <tbody>
+                        {% for row in detail_list.rows %}
+                            <tr>
+                            {% for value in row %}
+                                <td>{{ value }}</td>
+                            {% endfor %}
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                {% else %}
+                    <p> No tests in progress </p>
+                {% endif %}
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h5 class="text-center">Finished Tests</h5>
+                </div>
+                <div class="panel-body">
+                {% if completed_list.rows %}
+                    <table class="table table-bordered table-striped table-hover">
+                        <thead>
+                            <tr>
+                            {% for key in completed_list.headings %}
+                                <th>{{ key }}</th>
+                            {% endfor %}
+                            </tr>
+                        </thead>
+                        <tbody>
+                        {% for completed in completed_list.rows %}
+                            <tr>
+                            {% for value in completed %}
+                                <td>{{ value }}</td>
+                            {% endfor %}
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                {% else %}
+                    <p> No tests in finished </p>
+                {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="autoreload-overlay">
+        <button id="autoreload-button" type="button" class="btn btn-primary">Autoreload</button>
+    </div>
+
+{% endblock %}
+
+{% block foot %}
+
+    {{ block.super }}
+
+    {% load static %}
+    <script src="{% static 'checker/autoupdate.js' %}"></script>
+
+{% endblock %}

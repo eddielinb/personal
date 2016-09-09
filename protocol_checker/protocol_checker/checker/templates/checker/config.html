@@ -1,0 +1,99 @@
+{% extends "shared/base.html" %}
+
+{% block navbar %}
+
+    {% include "shared/navbar.html" with view_name='configs'%}
+
+{% endblock %}
+
+{% block content %}
+
+    <div class="container">
+        <h3 class="text-center">Edit Test Config</h3>
+        <div class="row">
+
+            {% load i18n widget_tweaks %}
+            <form role="form" id="name_form" action="" method="post">
+                {% csrf_token %}
+
+                {% for field in name_form %}
+                    {% if field.errors %}
+                        <div class="form-group has-error">
+                            <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+                            {% render_field field class+="form-control"%}
+                            <span class="help-block">
+                                {% for error in  field.errors %}{{ error }}{% endfor %}
+                            </span>
+                        </div>
+                    {% else %}
+                        <div class="form-group">
+                            <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+                            {% render_field field class+="form-control"%}
+                            {% if field.help_text %}
+                                <p class="help-block"><small>{{ field.help_text }}</small></p>
+                            {% endif %}
+                        </div>
+                    {% endif %}
+                {% endfor %}
+
+                    <div class="form-group">
+
+                        {{ config_forms.management_form }}
+                        <table class="table table-striped table-bordered table-hover">
+                            <thead>
+                                <tr>
+                                    <th class="col-xs-2">Status</th>
+                                    <th class="col-xs-4">Request</th>
+                                    <th class="col-xs-2">Next Status</th>
+                                    <th class="col-xs-4">Response</th>
+                                    <th width="57px">&nbsp;</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for config_form in config_forms %}
+                                <tr>
+                                    {% for field in config_form %}
+                                        {% if field.is_hidden %}
+                                            {{ field }}
+                                        {% else %}
+                                            <label class="sr-only" for="{{ field.id_for_label }}">{{ field.label }}</label>
+                                            <td>{% render_field field class+="form-control" placeholder=field.label %}</td>
+                                        {% endif %}
+                                    {% endfor %}
+                                    <td>
+                                        {% if forloop.last %}
+                                            <button type="submit" class="btn btn-default" name="_action" value="add">
+                                                <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+                                            </button>
+                                        {% else %}
+                                            <button type="submit" class="btn btn-default" name="{{ config_forms.prefix }}-{{ forloop.counter0 }}-DELETE" value="on">
+                                                <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+                                            </button>
+                                        {% endif %}
+                                    </td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div class="form-group">
+                        <!-- <div class="col-sm-offset-4 col-sm-8"> -->
+                        <button type="submit" class="btn btn-primary", name="_action" value="submit">Submit</button>
+                        <!-- </div> -->
+                    </div>
+
+            </form>
+        </div>
+    </div>
+
+{% endblock %}
+
+{% block foot %}
+
+    {{ block.super }}
+
+    {% load static %}
+    <script src="{% static 'checker/autoscroll.js' %}"></script>
+
+{% endblock %}
