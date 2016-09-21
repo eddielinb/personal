@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>detector</title>
+</head>
+<body>
+    <h3 class="text-center">Detector setting</h3>
+    <div id="graph-container" class="graph-sync">
+        <div class="panel panel-default">
+            <h4 class="panel-heading"> Power consumption</h4>
+        </div>
+        <div class="panel-body">
+            <div id="graph_power" class="graph-div graph-loading"></div>
+        </div>
+        <div class="panel panel-default">
+            <h4 class="panel-heading">Prediction probability</h4>
+        </div>
+        <div class="panel-body">
+            <div id="graph_prediction" class="graph-div graph-loading"></div>
+        </div>
+        <div class = "row">
+            <div class="col-md-6">
+                <div class = "panel panel-default">
+                    <h4 class="panel-heading">Waveforms</h4>
+                </div>
+                <div class="panel-body">
+                    <div id="graph_waveforms" class="graph-div graph-loading"></div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class = "panel panel-default">
+                    <h4 class = "panel-heading">Diff Waveforms</h4>
+                </div>
+                <div class = "panel-body">
+                    <div id = "graph_diff" class = "graph-div graph-loading"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+<script>
+    django_post_url = "{% url 'detector:post_data' %}";
+    threshold_value = 0.6;
+</script>
+
+{% include "detector/footer.html" %}
+
+{% load static %}
+<script src="{% static 'detector/detector_graph.js' %}"></script>
+
+</html>
