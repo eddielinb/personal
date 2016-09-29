@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+
+{% include "web_ui/header.html" with app_name='log_visual' %}
+
+<body>
+
+    {% include "web_ui/nav_bar.html" with app_name='log_visual' %}
+
+     <div class="container">
+        <h2 class="text-center">Cloud Storage Logs</h2>
+        <div class="row rounded-box">
+            <form role="form" class="graph_form" action="" method="post" > {% csrf_token %}
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-md-6 form-group">
+                            <div class="form-group">
+                                <label for="sts">Start timestamp:</label>
+                                <input type="text" name="sts" value="{{ populate_values.sts }}" class="form-control ts" id="sts" placeholder="Start Timestamp">
+                            </div>
+                            <div class="form-group">
+                                <label for="sdt">Start date time:</label>
+                                <div class='input-group date dtpicker' id='sdtpicker'>
+                                    <input type="text" class="form-control" id="sdt" placeholder="Start Date Time">
+                                    <span class="input-group-addon">
+                                        <span class="glyphicon glyphicon-calendar"></span>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 form-group">
+                            <div class="form-group">
+                                <label for="ets">End timestamp:</label>
+                                <input type="text" name="ets" value="{{ populate_values.ets }}" class="form-control ts" id="ets" placeholder="End Timestamp">
+                            </div>
+                            <div class="form-group">
+                                <label for="edt">End date time:</label>
+                                <div class='input-group date dtpicker' id='edtpicker'>
+                                    <input type="text" class="form-control" id="edt" placeholder="End Date Time">
+                                    <span class="input-group-addon">
+                                        <span class="glyphicon glyphicon-calendar"></span>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6 form-group">
+                            <button class="fetch btn btn-primary" type="submit" name="data_type" value="data">Get Data</button>
+                        </div>
+                        <div class="col-md-6 form-group">
+                            <button class="fetch cancel btn btn-default" type="button" tabindex="-1">Cancel</button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+     </div>
+
+     <h3 id="data-heading" class="text-center">Visualisation of Logs</h3>
+
+     <div id="graph-container" class="graph-sync">
+        <div class="panel panel-default">
+            <div class="panel-heading" data-toggle="collapse" href="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
+                <h4 class="panel-title" role="tab" id="headingOne">
+                    <a role="button">Unique Mac Counts</a>
+                </h4>
+            </div>
+            <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
+                <div class="panel-body">
+                    <div id="graph_unique_mac" class="graph-div graph-loading"></div>
+                </div>
+            </div>
+        </div>
+         <div class="panel panel-default">
+             <div class="panel-heading" data-toggle="collapse" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                <h4 class="panel-title" role="tab" id="headingTwo">
+                        <a role="button">Request Counts</a>
+                </h4>
+            </div>
+            <div id="collapseTwo" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingTwo">
+                <div class="panel-body">
+                    <div id="graph_request" class="graph-div graph-loading"></div>
+                </div>
+            </div>
+         </div>
+    </div>
+
+</body>
+
+<script>
+    django_populate_values_data_type = null
+    django_post_url = "{% url 'log_visual:post_data' %}";
+</script>
+
+{% include "web_ui/footer.html" %}
+
+{% load static %}
+<script src="{% static 'log_visual/log_visual_graph.js' %}"></script>
+
+
+</html>

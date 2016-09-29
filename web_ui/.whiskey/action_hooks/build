@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+
+set -eo pipefail
+
+python web_ui_project/manage.py collectstatic --noinput

@@ -1,0 +1,9 @@
+pytz==2015.4
+ujson==1.33
+msgpack-python==0.4.7
+msgpack-numpy==0.3.6
+httplib2==0.9.1
+
+# for GCP
+oauth2client==1.5.1
+google-api-python-client==1.4.2

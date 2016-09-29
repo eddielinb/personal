@@ -1,0 +1,14 @@
+<div class="panel panel-default graph-populate-panel">
+    <div class="panel-heading" data-toggle="collapse" href="#collapse{{ graph_num }}" aria-expanded="true" aria-controls="collapse{{ graph_num }}">
+        <h4 class="panel-title" role="tab" id="heading{{ graph_num }}">
+            <a role="button">
+                {{ graph_title }}
+            </a>
+        </h4>
+    </div>
+    <div id="collapse{{ graph_num }}" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading{{ graph_num }}">
+        <div class="panel-body">
+            <div id="{{ graph_id }}" class="graph-div"></div>
+        </div>
+    </div>
+</div>

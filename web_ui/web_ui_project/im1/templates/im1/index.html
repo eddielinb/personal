@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+
+{% include "web_ui/header.html" with app_name='im1' %}
+
+<body>
+
+    {% include "web_ui/nav_bar.html" with app_name='im1' %}
+
+    <div class="container">
+        <h2 class="text-center">imGate API</h2>
+        <div class="row rounded-box">
+            <form role="form" class="graph_form" action="{% url 'im1:json' %}" method="post" target="_blank"> {% csrf_token %}
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-md-9">
+                            <div class="row">
+                                <div class="col-md-4 form-group">
+                                    <label for="customer_id">Customer ID:</label>
+                                    <input type="text" name="customer" value="{{ populate_values.customer }}" class="form-control" id="customer_id" placeholder="Email">
+                                </div>
+                                <div class="col-md-4 form-group">
+                                    <label for="sts">Start timestamp:</label>
+                                    <input type="text" name="sts" value="{{ populate_values.sts }}" class="form-control ts" id="sts" placeholder="Start Timestamp">
+                                </div>
+                                <div class="col-md-4 form-group">
+                                    <label for="ets">End timestamp:</label>
+                                    <input type="text" name="ets" value="{{ populate_values.ets }}" class="form-control ts" id="ets" placeholder="End Timestamp">
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-4"></div>
+                                <div class="col-md-4 form-group">
+                                    <label for="sts">Start date time:</label>
+                                    <div class='input-group date dtpicker' id='sdtpicker'>
+                                        <input type="text" class="form-control" id="sdt" placeholder="Start Date Time">
+                                        <span class="input-group-addon">
+                                            <span class="glyphicon glyphicon-calendar"></span>
+                                        </span>
+                                    </div>
+                                </div>
+                                <div class="col-md-4 form-group">
+                                    <label for="sts">End date time:</label>
+                                    <div class='input-group date dtpicker' id='edtpicker'>
+                                        <input type="text" class="form-control" id="edt" placeholder="End Date Time">
+                                        <span class="input-group-addon">
+                                            <span class="glyphicon glyphicon-calendar"></span>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3 form-group">
+                            <label>Time Units:</label>
+                            <div style="height: 107.8px" class="form-control pre-scrollable">
+                                {% for choice in time_unit.choice_list %}
+                                    <div class="checkbox">
+                                        <label class="checkbox"><input type="checkbox" name="{{ time_unit.name }}" value="{{ choice.value }}" {{ choice.ch }}> {{ choice.text }}</label>
+                                    </div>
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-3 form-group">
+                            <button class="fetch btn btn-primary" name="data_type" value="observed_data" type="submit">Show Observed Data</button>
+                        </div>
+                        <div class="col-md-3 form-group">
+                            <button class="fetch btn btn-primary" name="data_type" value="estimated_data" type="submit">Show Estimated Data</button>
+                        </div>
+                        <div class="col-md-3 form-group">
+                            <button class="fetch cancel btn btn-default" type="button" tabindex="-1">Cancel</button>
+                        </div>
+                        <div class="col-md-3 form-group">
+                            <button class="btn btn-link" value="json" type="submit" tabindex="-1">Show JSON</button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+
+        <div class="row rounded-box">
+            <div>
+                <table class="table table-bordered">
+                    <tr>
+                        <th>Data</th>
+                        <th>Customer ID<br></th>
+                        <th>Start Timestamp<br></th>
+                        <th>End Timestamp<br></th>
+                        <th>Time Units<br></th>
+                    </tr>
+                    <tr>
+                        <td id="get_data"></td>
+                        <td id="get_cust"></td>
+                        <td id="get_sts"></td>
+                        <td id="get_ets"></td>
+                        <td id="get_time"></td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+
+    </div>
+    <h3 id="data-heading" class="text-center">imGate data</h3>
+
+    <div id="graph-container" class="graph-sync">
+        <div class="panel panel-default">
+            <div class="panel-heading" data-toggle="collapse" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                <h4 class="panel-title" role="tab" id="headingOne">
+                    <a role="button">
+                        Aggregate Data
+                    </a>
+                </h4>
+            </div>
+            <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
+                <div class="panel-body">
+                    <div id="graph1" class="graph-div"></div>
+                </div>
+            </div>
+        </div>
+        <div class="panel panel-default">
+            <div class="panel-heading" data-toggle="collapse" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                <h4 class="panel-title" role="tab" id="headingTwo">
+                    <a class="collapsed" role="button">
+                        Appliance Data
+                    </a>
+                </h4>
+            </div>
+            <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
+                <div class="panel-body">
+                    <div id="graph2" class="graph-div"></div>
+                </div>
+            </div>
+        </div>
+        <div class="panel panel-default">
+            <div class="panel-heading" data-toggle="collapse" href="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                <h4 class="panel-title" role="tab" id="headingThree">
+                    <a class="collapsed" role="button">
+                        Stacked Data
+                    </a>
+                </h4>
+            </div>
+            <div id="collapseThree" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree">
+                <div class="panel-body">
+                    <div id="graph3" class="graph-div"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</body>
+
+<script>
+    django_populate_values_data_type = "{{ populate_values.data_type }}"
+    django_time_map_string = '{{ time_map_str|safe }}';
+    django_app_map_string = '{{ app_map_str|safe }}';
+    django_post_url = "{% url 'im1:post_data' %}";
+</script>
+
+{% include "web_ui/footer.html" %}
+
+{% load static %}
+<script src="{% static 'im1/im1_graph.js' %}"></script>
+
+</html>

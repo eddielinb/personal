@@ -1,0 +1,226 @@
+{
+    "1": {
+        "name": "Air Cleaner",
+        "type": 1
+    },
+    "2": {
+        "name": "Air Conditioner",
+        "type": 1
+    },
+    "3": {
+        "name": "Ceiling Fan",
+        "type": 1
+    },
+    "4": {
+        "name": "Clothes Iron",
+        "type": 1
+    },
+    "5": {
+        "name": "Clothes Washer",
+        "type": 1
+    },
+    "6": {
+        "name": "Coffee Maker",
+        "type": 1
+    },
+    "7": {
+        "name": "Desk Lamp",
+        "type": 1
+    },
+    "8": {
+        "name": "Electric Heater",
+        "type": 1
+    },
+    "9": {
+        "name": "Electric Kettle",
+        "type": 1
+    },
+    "10": {
+        "name": "Electric Piano",
+        "type": 1
+    },
+    "11": {
+        "name": "Electric Pot",
+        "type": 1
+    },
+    "12": {
+        "name": "Floor Heating",
+        "type": 1
+    },
+    "13": {
+        "name": "Food Mixer",
+        "type": 1
+    },
+    "14": {
+        "name": "Gaming Player",
+        "type": 1
+    },
+    "15": {
+        "name": "Hair Dryer",
+        "type": 1
+    },
+    "16": {
+        "name": "Humidifier",
+        "type": 1
+    },
+    "17": {
+        "name": "Image Scanner",
+        "type": 1
+    },
+    "18": {
+        "name": "Kotatsu",
+        "type": 1
+    },
+    "19": {
+        "name": "Laptop PC",
+        "type": 1
+    },
+    "20": {
+        "name": "Microwave",
+        "type": 1
+    },
+    "21": {
+        "name": "Music Player",
+        "type": 1
+    },
+    "22": {
+        "name": "Overhead Lighting",
+        "type": 1
+    },
+    "23": {
+        "name": "Printer",
+        "type": 1
+    },
+    "24": {
+        "name": "Refrigerator",
+        "type": 1
+    },
+    "25": {
+        "name": "Rice Cooker",
+        "type": 1
+    },
+    "26": {
+        "name": "Tablet",
+        "type": 1
+    },
+    "27": {
+        "name": "Telephone",
+        "type": 1
+    },
+    "28": {
+        "name": "Toaster",
+        "type": 1
+    },
+    "29": {
+        "name": "Toilet",
+        "type": 1
+    },
+    "30": {
+        "name": "TV",
+        "type": 1
+    },
+    "31": {
+        "name": "Vacuum Cleaner",
+        "type": 1
+    },
+    "32": {
+        "name": "Vent Fan",
+        "type": 1
+    },
+    "33": {
+        "name": "Video Recorder",
+        "type": 1
+    },
+    "34": {
+        "name": "Dish Washer",
+        "type": 1
+    },
+    "35": {
+        "name": "Oven",
+        "type": 1
+    },
+    "36": {
+        "name": "Bread Machine",
+        "type": 1
+    },
+    "37": {
+        "name": "IH",
+        "type": 1
+    },
+    "38": {
+        "name": "Bath Dryer",
+        "type": 1
+    },
+    "39": {
+        "name": "EcoCute",
+        "type": 1
+    },
+    "40": {
+        "name": "Thermal Storage Heater",
+        "type": 1
+    },
+    "41": {
+        "name": "Electric Water Heater",
+        "type": 1
+    },
+    "300": {
+        "name": "Kettle/Hair Dryer",
+        "type": 2
+    },
+    "301": {
+        "name": "Heater",
+        "type": 2
+    },
+    "302": {
+        "name": "Hari",
+        "type": 2
+    },
+    "303": {
+        "name": "Extreme Heat",
+        "type": 2
+    },
+    "304": {
+        "name": "Light",
+        "type": 2
+    },
+    "308": {
+        "name": "Home Appliance",
+        "type": 2
+    },
+    "309": {
+        "name": "Power Generator",
+        "type": 2
+    },
+    "310": {
+        "name": "Outlet Load",
+        "type": 2
+    },
+    "800": {
+        "name": "Motion Sensor",
+        "type": 99
+    },
+    "994": {
+        "name": "Other Generator",
+        "type": 3
+    },
+    "995": {
+        "name": "Main Breaker",
+        "type": 99
+    },
+    "996": {
+        "name": "FC",
+        "type": 3
+    },
+    "997": {
+        "name": "PV",
+        "type": 3
+    },
+    "998": {
+        "name": "Background",
+        "type": 99
+    },
+    "999": {
+        "name": "Unknown",
+        "type": 99
+    }
+}

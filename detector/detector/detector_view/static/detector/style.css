@@ -1,0 +1,15 @@
+button.cancel{
+    display: none;
+}
+.graph-div{
+    width:100%;
+    height:400px;
+}
+.rounded-box{
+    padding: 15px 15px 0px;
+    margin: 15px 0px 15px;
+    border-style: solid;
+    border-color: #ddd;
+    border-width: 1px;
+    border-radius: 4px;
+}

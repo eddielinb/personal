@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+
+{% include "web_ui/header.html" with app_name='gdrive1' %}
+
+<body>
+
+    {% include "web_ui/nav_bar.html" with app_name='gdrive1' %}
+
+    <div class="container">
+        <h2 class="text-center">Google Drive</h2>
+        <div class="row rounded-box">
+            <form role="form" class="graph_form" action="{% url 'gdrive1:json' %}" method="post" target="_blank"> {% csrf_token %}
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-md-4 form-group">
+                            <label for="mac">Mac Address:</label>
+                            <input type="text" name="mac" value="{{ populate_values.mac }}" class="form-control" id="mac" placeholder="Mac Address">
+                        </div>
+                        <div class="col-md-4 form-group">
+                            <div class="form-group">
+                                <label for="sts">Start timestamp:</label>
+                                <input type="text" name="sts" value="{{ populate_values.sts }}" class="form-control ts" id="sts" placeholder="Start Timestamp">
+                            </div>
+                            <div class="form-group">
+                                <label for="sdt">Start date time:</label>
+                                <div class='input-group date dtpicker' id='sdtpicker'>
+                                    <input type="text" class="form-control" id="sdt" placeholder="Start Date Time">
+                                    <span class="input-group-addon">
+                                        <span class="glyphicon glyphicon-calendar"></span>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4 form-group">
+                            <div class="form-group">
+                                <label for="ets">End timestamp:</label>
+                                <input type="text" name="ets" value="{{ populate_values.ets }}" class="form-control ts" id="ets" placeholder="End Timestamp">
+                            </div>
+                            <div class="form-group">
+                                <label for="edt">End date time:</label>
+                                <div class='input-group date dtpicker' id='edtpicker'>
+                                    <input type="text" class="form-control" id="edt" placeholder="End Date Time">
+                                    <span class="input-group-addon">
+                                        <span class="glyphicon glyphicon-calendar"></span>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4 form-group">
+                            <button class="fetch btn btn-primary" type="submit" name="data_type" value="data">Get Data</button>
+                        </div>
+                        <div class="col-md-4 form-group">
+                            <button class="fetch cancel btn btn-default" type="button" tabindex="-1">Cancel</button>
+                        </div>
+                        <div class="col-md-4 form-group">
+                            <button class="btn btn-link" value="json" type="submit" tabindex="-1">Show JSON</button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+
+        <div class="row rounded-box">
+            <div>
+                <table class="table table-bordered">
+                    <tr>
+                        <th>Mac Address<br></th>
+                        <th>Start Timestamp<br></th>
+                        <th>End Timestamp<br></th>
+                    </tr>
+                    <tr>
+                        <td id="get_mac"></td>
+                        <td id="get_sts"></td>
+                        <td id="get_ets"></td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+
+    </div>
+    <h3 id="data-heading" class="text-center">Google Drive data</h3>
+
+    <div id="graph-container container-fluid">
+        <div class="graph-sync">
+            <div class="row panel panel-default">
+                <div class="panel-heading" data-toggle="collapse" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                    <h4 class="panel-title" role="tab" id="headingOne">
+                        <a role="button">Power</a>
+                    </h4>
+                </div>
+                <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
+                    <div class="panel-body">
+                        <div id="graph_power" class="graph-div graph-loading"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="row panel panel-default">
+                <div class="panel-heading" data-toggle="collapse" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                    <h4 class="panel-title" role="tab" id="headingTwo">
+                        <a class="collapsed" role="button">RSSI</a>
+                    </h4>
+                </div>
+                <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
+                    <div class="panel-body">
+                        <div id="graph_rssi" class="graph-div"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="panel panel-default">
+                    <div class="panel-heading" data-toggle="collapse" href="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                        <h4 class="panel-title" role="tab" id="headingThree">
+                            <a class="collapsed" role="button">Voltage</a>
+                        </h4>
+                    </div>
+                    <div id="collapseThree" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree">
+                        <div class="panel-body">
+                            <div id="graph_wave_v" class="graph-div"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="panel panel-default">
+                    <div class="panel-heading" data-toggle="collapse" href="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
+                        <h4 class="panel-title" role="tab" id="headingFour">
+                            <a class="collapsed" role="button">Current</a>
+                        </h4>
+                    </div>
+                    <div id="collapseFour" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingFour">
+                        <div class="panel-body">
+                            <div id="graph_wave_i" class="graph-div"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</body>
+
+<script>
+    django_populate_values_data_type = null
+    django_post_url = "{% url 'gdrive1:post_data' %}";
+</script>
+
+{% include "web_ui/footer.html" %}
+
+{% load static %}
+<script src="{% static 'gdrive1/gdrive1_graph.js' %}"></script>
+
+</html>

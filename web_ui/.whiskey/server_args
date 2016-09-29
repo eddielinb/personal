@@ -1,0 +1,4 @@
+--working-directory web_ui
+--url-alias /static web_ui/htdocs
+--application-type module
+web_ui.wsgi

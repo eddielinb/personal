@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+
+{% include "web_ui/header.html" with app_name='csv1' %}
+
+<body>
+
+    {% include "web_ui/nav_bar.html" with app_name='csv1' %}
+
+    <div class="container">
+        <h2 class="text-center">CSV</h2>
+        <div class="row rounded-box">
+            <form role="form" class="graph_form" action="{% url 'csv1:json' %}" method="post" target="_blank"> {% csrf_token %}
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-md-3 form-group">
+                            <label for="service_id">Service Provider ID:</label>
+                            <input type="text" name="service_id" value="{{ populate_values.service_id }}" class="form-control" id="service_id" placeholder="Service Provider ID">
+                        </div>
+                        <div class="col-md-3 form-group">
+                            <label for="user_id">User ID:</label>
+                            <input type="text" name="user_id" value="{{ populate_values.user_id }}" class="form-control" id="user_id" placeholder="User ID">
+                        </div>
+                        <div class="col-md-3 form-group">
+                            <div class="form-group">
+                                <label for="ts">Timestamp:</label>
+                                <input type="text" name="ts" value="{{ populate_values.ts }}" class="form-control ts" id="ts" placeholder="Timestamp">
+                            </div>
+                            <div class="form-group">
+                                <label for="dt">Start date time:</label>
+                                <div class='input-group date dtpicker' id='dtpicker'>
+                                    <input type="text" class="form-control" id="dt" tabindex="-1" placeholder="Date Time">
+                                    <span class="input-group-addon">
+                                        <span class="glyphicon glyphicon-calendar"></span>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3 form-group">
+                            <label for="tz">Timezone:</label>
+                            <input type="text" name="tz" value="{{ populate_values.tz }}" class="form-control" id="tz" placeholder="Asia/Tokyo">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-3 form-group">
+                            <button class="fetch btn btn-primary" name="data_type" value="observed_data" type="submit">Show Observed Data</button>
+                        </div>
+                        <div class="col-md-3 form-group">
+                            <button class="fetch btn btn-primary" name="data_type" value="estimated_data" type="submit">Show Estimated Data</button>
+                        </div>
+                        <div class="col-md-3 form-group">
+                            <button class="fetch cancel btn btn-default" type="button" tabindex="-1">Cancel</button>
+                        </div>
+                        <div class="col-md-3 form-group">
+                            <button class="btn btn-link btn-default" value="json" type="submit" tabindex="-1">Show JSON</button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+
+        <div class="row rounded-box">
+            <div>
+                <table class="table table-bordered">
+                    <tr>
+                        <th>Data</th>
+                        <th>Service Provider ID</th>
+                        <th>User ID<br></th>
+                        <th>Timestamp<br></th>
+                        <th>Timezone<br></th>
+                    </tr>
+                    <tr>
+                        <td id="get_data"></td>
+                        <td id="get_service"></td>
+                        <td id="get_user"></td>
+                        <td id="get_ts"></td>
+                        <td id="get_tz"></td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+
+    </div>
+    <h3 id="data-heading" class="text-center">CSV data</h3>
+
+    <div id="graph-container" class="graph-sync">
+        <div class="panel panel-default">
+            <div class="panel-heading" data-toggle="collapse" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                <h4 class="panel-title" role="tab" id="headingOne">
+                    <a role="button">
+                        Aggregate Data
+                    </a>
+                </h4>
+            </div>
+            <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
+                <div class="panel-body">
+                    <div id="graph1" class="graph-div"></div>
+                </div>
+            </div>
+        </div>
+        <div class="panel panel-default">
+            <div class="panel-heading" data-toggle="collapse" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                <h4 class="panel-title" role="tab" id="headingTwo">
+                    <a class="collapsed" role="button">
+                        Appliance Data
+                    </a>
+                </h4>
+            </div>
+            <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
+                <div class="panel-body">
+                    <div id="graph2" class="graph-div"></div>
+                </div>
+            </div>
+        </div>
+        <div class="panel panel-default">
+            <div class="panel-heading" data-toggle="collapse" href="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                <h4 class="panel-title" role="tab" id="headingThree">
+                    <a class="collapsed" role="button">
+                        Stacked Data
+                    </a>
+                </h4>
+            </div>
+            <div id="collapseThree" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree">
+                <div class="panel-body">
+                    <div id="graph3" class="graph-div"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</body>
+
+<script>
+    django_populate_values_data_type = "{{ populate_values.data_type }}"
+    django_post_url = "{% url 'csv1:post_data' %}";
+</script>
+
+{% include "web_ui/footer.html" %}
+
+{% load static %}
+<script src="{% static 'csv1/csv1_graph.js' %}"></script>
+
+</html>
